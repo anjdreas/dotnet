@@ -59,6 +59,7 @@
     <Compile Include="BaseProfilerProvider.cs">
       <DependentUpon>IProfilerProvider.cs</DependentUpon>
     </Compile>
+    <Compile Include="CallContextProfilerProvider.cs" />
     <Compile Include="ClientTimings.cs" />
     <Compile Include="CustomTiming.cs" />
     <Compile Include="Helpers\Compression.cs" />
