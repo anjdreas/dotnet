@@ -10,6 +10,8 @@ namespace StackExchange.Profiling
     /// </summary>
     public abstract class BaseProfilerProvider : IProfilerProvider
     {
+        private Timing _head;
+
         /// <summary>
         /// Starts a new MiniProfiler and sets it to be current.  By the end of this method
         /// <see cref="GetCurrentProfiler"/> should return the new MiniProfiler.
@@ -34,6 +36,22 @@ namespace StackExchange.Profiling
         /// Returns the current MiniProfiler.  This is used by <see cref="MiniProfiler.Current"/>.
         /// </summary>
         public abstract MiniProfiler GetCurrentProfiler();
+
+        /// <summary>
+        ///     Gets the currently executing Timing. This is used by <see cref="MiniProfiler.Head"/>.
+        /// </summary>
+        public virtual Timing GetHead()
+        {
+            return _head;
+        }
+
+        /// <summary>
+        ///     Sets the currently executing Timing. This is used by <see cref="MiniProfiler.Head"/>.
+        /// </summary>
+        public virtual void SetHead(Timing t)
+        {
+            _head = t;
+        }
 
         /// <summary>
         /// Sets <paramref name="profiler"/> to be active (read to start profiling)

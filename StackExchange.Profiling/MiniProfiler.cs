@@ -218,7 +218,11 @@ namespace StackExchange.Profiling
         /// Gets or sets points to the currently executing Timing. 
         /// </summary>
         [ScriptIgnore]
-        public Timing Head { get; set; }
+        public Timing Head
+        {
+            get { return Settings.ProfilerProvider.GetHead(); }
+            set { Settings.ProfilerProvider.SetHead(value); }
+        }
 
         /// <summary>
         /// Gets the ticks since this MiniProfiler was started.

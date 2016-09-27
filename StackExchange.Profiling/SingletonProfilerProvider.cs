@@ -9,6 +9,7 @@ namespace StackExchange.Profiling
     public class SingletonProfilerProvider : IProfilerProvider
     {
         private MiniProfiler _profiler;
+        private Timing _head;
 
         /// <summary>
         /// The name says it all
@@ -17,6 +18,18 @@ namespace StackExchange.Profiling
         public MiniProfiler GetCurrentProfiler()
         {
             return _profiler;
+        }
+
+        /// <inheritdoc />
+        public Timing GetHead()
+        {
+            return _head;
+        }
+
+        /// <inheritdoc />
+        public void SetHead(Timing t)
+        {
+            _head = t;
         }
 
         /// <summary>
