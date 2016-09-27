@@ -67,6 +67,8 @@ namespace StackExchange.Profiling
         /// </summary>
         private Timing _root;
 
+        private readonly object _stepSync = new object();
+
         /// <summary>
         /// Gets or sets the profiler id.
         /// Identifies this Profiler so it may be stored/cached.
@@ -464,7 +466,12 @@ namespace StackExchange.Profiling
 
         internal IDisposable StepImpl(string name, decimal? minSaveMs = null, bool? includeChildrenWithMinSave = false)
         {
-            return new Timing(this, Head, name, minSaveMs, includeChildrenWithMinSave);
+            // Creating a Timing accesses a lot of properties in MiniProfiler that are not thread safe,
+            // so wrap in a lock to only create a Timing at a time.
+            lock (_stepSync)
+            {
+                return new Timing(this, Head, name, minSaveMs, includeChildrenWithMinSave);
+            }
         }
 
         [Obsolete("Please use the StepImpl(string name) overload instead of this one. ProfileLevel is going away.")]
