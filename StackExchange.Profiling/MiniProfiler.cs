@@ -14,7 +14,7 @@ namespace StackExchange.Profiling
     /// </summary>
     /// <remarks>Totally baller.</remarks>
     [DataContract]
-    public partial class MiniProfiler
+    public partial class MiniProfiler : IDisposable
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="MiniProfiler"/> class. 
@@ -425,6 +425,12 @@ namespace StackExchange.Profiling
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            StopImpl();
         }
 
         /// <summary>
